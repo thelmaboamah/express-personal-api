@@ -3,8 +3,8 @@ var mongoose = require('mongoose'),
 
 var GoalSchema = new Schema({
 	goal: String,
-	description: String,
-	date: String,
+	whyImportant: String,
+	completeByDate: String,
 	completed: {type: Boolean, default: false},
 	reward: String
 })

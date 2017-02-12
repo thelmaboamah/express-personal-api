@@ -60,9 +60,28 @@ app.get('/api', function apiIndex(req, res) {
   })
 });
 
+app.get('/api/profile', function profile(req, res) {
+  res.json({
+    name: "Thelma Boamah",
+    githubProfile: "https://github.com/thelmaboamah",
+    githubImg: "https://avatars1.githubusercontent.com/u/17172664?v=3&s=460",
+    portfolioSite: "http://thelma.codes/",
+    currentCity: "Oakland, CA",
+    pets: false,
+    favoriteThings: ["singing", "musical theater", "live music", "roller coasters", "good food", "earrings", "lipstick"]
+  })
+});
+
 /**********
  * SERVER *
  **********/
+
+ app.get('/api/goals', function goalsIndex(req, res) {
+  db.Goal.find({}, function(err, allGoals){
+      if (err) {console.log("Error: ", err);}
+      res.json(allGoals);
+    });
+ });
 
 // listen on port 3000
 app.listen(process.env.PORT || 3000, function () {
