@@ -76,11 +76,20 @@ app.get('/api/profile', function profile(req, res) {
  * SERVER *
  **********/
 
- app.get('/api/goals', function goalsIndex(req, res) {
+ app.get('/api/goals', function index(req, res) {
+  //See all my goals
   db.Goal.find({}, function(err, allGoals){
       if (err) {console.log("Error: ", err);}
       res.json(allGoals);
     });
+ });
+
+ app.get('/api/goals/:goal_id', function show(req, res) {
+  var goalId = req.params.goal_id;
+  db.Goal.find({_id: goalId}, function(err, foundGoal) {
+    if (err) {console.log("Error: ", err);}
+    res.json(foundGoal);
+  });
  });
 
 // listen on port 3000

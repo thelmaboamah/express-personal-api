@@ -41,21 +41,3 @@ db.Goal.remove({}, function(err){
     process.exit();
 	});
 });
-
-// db.Campsite.create(new_campsite, function(err, campsite){
-//   if (err){
-//     return console.log("Error:", err);
-//   }
-
-//   console.log("Created new campsite", campsite._id)
-//   process.exit(); // we're all done! Exit the program.
-// })
-
-
-
-// books_list.forEach(function (bookData) {
-//         var book = new db.Book({
-//           title: bookData.title,
-//           image: bookData.image,
-//           releaseDate: bookData.releaseDate
-//         });
