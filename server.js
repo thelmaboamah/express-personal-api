@@ -76,21 +76,65 @@ app.get('/api/profile', function profile(req, res) {
  * SERVER *
  **********/
 
- app.get('/api/goals', function index(req, res) {
+app.get('/api/goals', function apiIndex(req, res) {
   //See all my goals
   db.Goal.find({}, function(err, allGoals){
-      if (err) {console.log("Error: ", err);}
-      res.json(allGoals);
-    });
- });
+    if (err) {console.log("Error: ", err);}
+    res.json(allGoals);
+  });
+});
 
- app.get('/api/goals/:goal_id', function show(req, res) {
+app.get('/api/goals/:goal_id', function showGoal(req, res) {
+  //Get one goal by id
   var goalId = req.params.goal_id;
   db.Goal.find({_id: goalId}, function(err, foundGoal) {
     if (err) {console.log("Error: ", err);}
     res.json(foundGoal);
   });
- });
+});
+
+app.post('/api/goals', function createGoal(req, res) {
+  //Create a new goal
+  var newGoal = new db.Goal({
+    goal: req.body.goal,
+    whyImportant: req.body.whyImportant,
+    completeByDate: req.body.completeByDate,
+    reward: req.body.reward
+  })
+
+  newGoal.save(function(err, savedGoal) {
+    if (err) {console.log("Error: ", err)};
+    console.log("Created new goal:" , savedGoal.goal);
+    res.json(savedGoal);
+  })
+});
+
+app.delete('/api/goals/:goal_id', function deleteGoal(req, res) {
+  //Delete a goal
+  var goalId = req.params.goal_id;
+  db.Goal.findOneAndRemove({_id: goalId}, function(err, foundGoal) {
+    if (err) {console.log("Error: ", err);}
+    res.sendStatus(204);
+  });
+});
+
+app.put('/api/goals/:goal_id', function updateGoal(req, res) {
+  //Update a goal
+  var goalId = req.params.goal_id;
+  
+  db.Goal.findOne({_id: goalId}, function(err, goal){
+    var body = req.body;
+    console.log(body);
+    for(key in body){
+      if(body[key]){
+        goal[key] = body[key];
+      }
+    } //Thanks, Kody.
+    goal.save(function(err, updatedGoal){
+      res.json(updatedGoal);
+    })
+  })
+});
 
 // listen on port 3000
 app.listen(process.env.PORT || 3000, function () {
