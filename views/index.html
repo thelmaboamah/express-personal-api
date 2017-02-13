@@ -23,7 +23,7 @@
           <h1>My GA Goals Tracker</h1> 
           <h4><a href="/api">Read My API Documentation</a></h4>
 
-          <form action="/api/goals" method="POST">
+          <form action="/api/goals" method="POST" class="new-goals-form">
             <h3>Add a New Goals</h3>
             <div class="form-group">
               <label for="goal">What's the goal?</label>
@@ -38,11 +38,13 @@
               <input class="form-control" type="date" id="completeByDate" >
             </div>
             <div class="form-group">
-             <label for="reward">What'll be your reward for getting it done?</label>
+             <label for="reward">What's your reward for getting it done?</label>
              <input class="form-control" type="text" id="reward" placeholder="E.g. Get a manicure.">
            </div>
            <button type="submit" class="btn btn-primary">Add Goal</button>
-          </form>        
+          </form>           
+        </div>
+        <div class="goals row">
           
         </div>
       </div>
