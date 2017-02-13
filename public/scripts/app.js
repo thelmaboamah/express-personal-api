@@ -39,17 +39,17 @@ function showGoalsSuccess(json) {
 		$(".goals")
 		.prepend(`<div class="card col-sm-6">
 				<div class="card-block" data-id="${goal._id}">
-				<h4>What's the goal?</h4>
-				<p>${goal.goal}</p>
-				<h4>Why is it important?</h4>
-				<p>${goal.whyImportant}</p>
-				<h4>What's your deadline?</h4>
-				<p>${goal.completeByDate}</p>
-				<h4>What's your reward for getting it done?</h4>
-				<p>${goal.reward}</p>
-				<p>Have you done this yet? <input type="checkbox" class="isDoneYet" value="${goal.completed}"></p>
-				<button type="button" class="btn btn-outline-info btn-lg">Edit Goal</button>
-				<button type="button" class="delete-btn btn btn-outline-danger btn-lg">Delete Goal</button>
+					<h4>What's the goal?</h4>
+					<p>${goal.goal}</p>
+					<h4>Why is it important?</h4>
+					<p>${goal.whyImportant}</p>
+					<h4>What's your deadline?</h4>
+					<p>${goal.completeByDate}</p>
+					<h4>What's your reward for getting it done?</h4>
+					<p>${goal.reward}</p>
+					<p>Have you done this yet? <input type="checkbox" class="isDoneYet" value="${goal.completed}"></p>
+					<button type="button" class="edit-btn btn btn-outline-info btn-lg">Edit Goal</button>
+					<button type="button" class="delete-btn btn btn-outline-danger btn-lg">Delete Goal</button>
 				</div>
 			</div>`)
 	})
@@ -63,6 +63,17 @@ function showGoalsSuccess(json) {
 			url: `api/goals/${goalId}`,
 			success: goalBox.remove()
 		})
+	})
+	
+	$(".edit-btn").click(function(){
+		//turn box into form with pre-filled fields
+		var goalId = $(this).parent().attr("data-id");
+		//Input form and make the text equal to value
+		var newForm = 
+			`<form action="/api/goals/${goalId}>
+				
+			</form>
+			`
 	})
 }
 
@@ -91,9 +102,9 @@ function createGoalSuccess(json){
 				<h4>What's your reward for getting it done?</h4>
 				<p>${goal.reward}</p>
 				<p>Have you done this yet? <input type="checkbox" class="isDoneYet" value="${goal.completed}"></p>
-				<button type="button" class="btn btn-outline-info btn-lg">Edit Goal</button>
+				<button type="button" class="edit-btn btn btn-outline-info btn-lg">Edit Goal</button>
 				</div>
-				<button type="button" class="btn btn-outline-danger btn-lg">Delete Goal</button>
+				<button type="button" class="delete-btn btn btn-outline-danger btn-lg">Delete Goal</button>
 				</div>
 			</div>`)
 }
