@@ -1,13 +1,13 @@
-console.log("Sanity Check: JS is working!");
 //Desired feature, notice telling you how many days until your goal is due.
 $(document).ready(function(){
+console.log("Sanity Check: JS is working!");
 
 	//Get all goals when page loads
 	$.ajax({
 		method: "GET",
 		url: "/api/goals",
 		success: showGoalsSuccess
-	})
+	});
 
 	//Add new goal when form is submitted
 	$(".new-goals-form").submit(function(e){
@@ -19,7 +19,7 @@ $(document).ready(function(){
 			data: $(this).serialize(),
 			success: createGoalSuccess
 		})
-	})
+	});
 
 	//Change goal to done
 	$(".isDoneYet").change(function(){
@@ -30,17 +30,8 @@ $(document).ready(function(){
 		});
 	});
 
-
-
-
-
-
-
 });
 
-function render(){
-
-}
 
 function showGoalsSuccess(json) {
 	var goals = json;
@@ -57,9 +48,21 @@ function showGoalsSuccess(json) {
 				<h4>What's your reward for getting it done?</h4>
 				<p>${goal.reward}</p>
 				<p>Have you done this yet? <input type="checkbox" class="isDoneYet" value="${goal.completed}"></p>
-				<button class="btn btn-outline-info btn-lg">Edit Goal</button>
+				<button type="button" class="btn btn-outline-info btn-lg">Edit Goal</button>
+				<button type="button" class="delete-btn btn btn-outline-danger btn-lg">Delete Goal</button>
 				</div>
 			</div>`)
+	})
+
+	//Code to delete a goals, won't work until goals are on the page
+	$(".delete-btn").click(function(){
+		var goalId = $(this).parent().attr("data-id");
+		var goalBox = $(this).parentsUntil(".goals");
+		$.ajax({
+			method: "DELETE",
+			url: `api/goals/${goalId}`,
+			success: goalBox.remove()
+		})
 	})
 }
 
@@ -88,7 +91,9 @@ function createGoalSuccess(json){
 				<h4>What's your reward for getting it done?</h4>
 				<p>${goal.reward}</p>
 				<p>Have you done this yet? <input type="checkbox" class="isDoneYet" value="${goal.completed}"></p>
-				<button class="btn btn-outline-info btn-lg">Edit Goal</button>
+				<button type="button" class="btn btn-outline-info btn-lg">Edit Goal</button>
+				</div>
+				<button type="button" class="btn btn-outline-danger btn-lg">Delete Goal</button>
 				</div>
 			</div>`)
 }

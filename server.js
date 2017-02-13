@@ -129,7 +129,7 @@ app.put('/api/goals/:goal_id', function updateGoal(req, res) {
       if(body[key]){
         goal[key] = body[key];
       }
-    } //Thanks, Kody.
+    }
     goal.save(function(err, updatedGoal){
       res.json(updatedGoal);
     })
